@@ -21,6 +21,11 @@ struct Rect {
         size.height = height;
     }
     Rect(){};
+    int bottom() {return origin.y+size.height;}
+    int top() {return origin.y;}
+    int left() {return origin.x;}
+    int right() {return origin.x+size.width;}
+
 };
 
 #endif

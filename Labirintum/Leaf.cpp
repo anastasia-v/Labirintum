@@ -78,6 +78,9 @@ void Leaf::createRooms() {
         if (rightChild != nullptr) {
             rightChild->createRooms();
         }
+        if (leftChild != nullptr && rightChild != nullptr) {
+            createHall(*leftChild->getRoom(), *rightChild->getRoom());
+        }
     } else { //если нет потомков, то создаем комнату в этом конкретном листе
         int wdt = frame.size.width;
         int hgt = frame.size.height;
@@ -90,5 +93,88 @@ void Leaf::createRooms() {
         roomPos.x = randomBetween(1, wdt-roomSize.x-1);
         roomPos.y = randomBetween(1, hgt-roomSize.y-1);
         room = new Rect(x+roomPos.x, y+roomPos.y, roomSize.x, roomSize.y);
+    }
+}
+
+Rect *Leaf::getRoom() {
+    if (room != nullptr) {
+        return room;
+    } else {
+        Rect *lRoom = nullptr;
+        Rect *rRoom = nullptr;
+        if (leftChild != nullptr) {
+            lRoom = leftChild->getRoom();
+        }
+        if (rightChild != nullptr) {
+            rRoom = rightChild->getRoom();
+        }
+        if (lRoom == nullptr && rRoom == nullptr) {
+            return nullptr;
+        } else if (rRoom == nullptr) {
+            return lRoom;
+        } else if (lRoom == nullptr) {
+            return rRoom;
+        } else if (arc4random_uniform(2)) {
+            return lRoom;
+        } else return rRoom;
+    }
+}
+
+void createHall(Rect l, Rect r) {
+    vector<Rect*> halls = *new vector <Rect*>;
+    Point point1;
+    point1.x = randomBetween(l.left()+1, l.right()-2);
+    point1.y = randomBetween(l.top()+1, l.bottom()-2);
+    Point point2;
+    point2.x = randomBetween(l.left()+1, l.right()-2);
+    point2.y = randomBetween(l.top()+1, l.bottom()-2);
+    int w = point2.x-point1.x;
+    int h = point2.y-point1.y;
+    if (w < 0) {
+        if (h < 0) {
+            if (arc4random_uniform(2)) {
+                halls.push_back(new Rect(point2.x, point1.y, abs(w), 1));
+                halls.push_back(new Rect(point2.x, point2.y, 1, abs(h)));
+            } else {
+                halls.push_back(new Rect(point2.x, point2.y, abs(w), 1));
+                halls.push_back(new Rect(point1.x, point2.y, 1, abs(h)));
+            }
+        } else if (h > 0) {
+            if (arc4random_uniform(2)) {
+                halls.push_back(new Rect(point2.x, point1.y, abs(w), 1));
+                halls.push_back(new Rect(point2.x, point1.y, 1, abs(h)));
+            } else {
+                halls.push_back(new Rect(point2.x, point2.y, abs(w), 1));
+                halls.push_back(new Rect(point1.x, point1.y, 1, abs(h)));
+            }
+        } else { //if (h == 0)
+            halls.push_back(new Rect(point2.x, point2.y, abs(w), 1));
+        }
+    } else if (w > 0) {
+        if (h < 0) {
+            if (arc4random_uniform(2)) {
+                halls.push_back(new Rect(point1.x, point2.y, abs(w), 1));
+                halls.push_back(new Rect(point1.x, point2.y, 1, abs(h)));
+            } else {
+                halls.push_back(new Rect(point1.x, point1.y, abs(w), 1));
+                halls.push_back(new Rect(point2.x, point2.y, 1, abs(h)));
+            }
+        } else if (h > 0) {
+            if (arc4random_uniform(2)) {
+                halls.push_back(new Rect(point1.x, point1.y, abs(w), 1));
+                halls.push_back(new Rect(point2.x, point1.y, 1, abs(h)));
+            } else {
+                halls.push_back(new Rect(point1.x, point2.y, abs(w), 1));
+                halls.push_back(new Rect(point1.x, point1.y, 1, abs(h)));
+            }
+        } else { //if (h == 0)
+            halls.push_back(new Rect(point1.x, point1.y, abs(w), 1));
+        }
+    } else { //if (w == 0)
+        if (h < 0) {
+            halls.push_back(new Rect(point2.x, point2.y, 1, abs(h)));
+        } else if (h > 0) {
+            halls.push_back(new Rect(point1.x, point1.y, 1, abs(h)));
+        }
     }
 }

@@ -23,6 +23,10 @@ class Leaf {
     bool split();
     ///рекурсивное создание комнат у листов, не имеющих дочерних листов
     void createRooms();
+    ///соединение комнат
+    Rect *getRoom();
+    ///создание проходов
+    void createHall(Rect l, Rect r);
     
 };
 
