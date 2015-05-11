@@ -4,7 +4,7 @@
 #include "Leaf.h"
 #include "Utils.h"
 
-unsigned const N = 25; // размер лабиринта NxN и размер основного (корневого) листа в графе
+unsigned const N = 25; // размер лабиринта NxN и размер основного (корневого) листа в графе.
 
 int main() {
     int max_leaf_size = 10; //максимальный размер листа
