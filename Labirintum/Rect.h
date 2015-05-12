@@ -3,6 +3,8 @@
 #ifndef Labirintum_Rect_h
 #define Labirintum_Rect_h
 
+#include <cstdio>
+
 struct Point {
     int x, y;
 };
@@ -25,7 +27,8 @@ struct Rect {
     int top() {return origin.y;}
     int left() {return origin.x;}
     int right() {return origin.x+size.width;}
-
+    
+    void description(){printf("Рамка листа:{{%d, %d}, {%d х %d}}; ", origin.x, origin.y, size.width, size.height);}
 };
 
 #endif

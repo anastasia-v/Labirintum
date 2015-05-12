@@ -14,5 +14,6 @@ int randomBetween(int x, int y);
 ///функции распечатки (визуализации) для контроля происходящего (можно особо не вникать ;) )
 void printLeafs(std::vector<Leaf*> leafs);
 void printRooms(std::vector<Leaf*> leafs);
+void printHalls(std::vector<Rect*> halls);
 
 #endif 

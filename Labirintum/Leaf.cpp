@@ -4,7 +4,7 @@
 #include "Utils.h"
 
 void Leaf::description() {
-    printf("Рамка листа:{{%d, %d}, {%d х %d}}; ", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+    frame.description();
     if (leftChild || rightChild){
         printf("имеет дочерние листы");
     }
@@ -20,6 +20,7 @@ Leaf::Leaf(Rect r) {
     room = nullptr;
     leftChild = nullptr;
     rightChild = nullptr;
+    halls = nullptr;
 }
 
 bool Leaf::split() {
@@ -120,8 +121,8 @@ Rect *Leaf::getRoom() {
     }
 }
 
-void createHall(Rect l, Rect r) {
-    vector<Rect*> halls = *new vector <Rect*>;
+void Leaf::createHall(Rect l, Rect r) {
+    halls = new vector <Rect*>;
     Point point1;
     point1.x = randomBetween(l.left()+1, l.right()-2);
     point1.y = randomBetween(l.top()+1, l.bottom()-2);
@@ -133,48 +134,48 @@ void createHall(Rect l, Rect r) {
     if (w < 0) {
         if (h < 0) {
             if (arc4random_uniform(2)) {
-                halls.push_back(new Rect(point2.x, point1.y, abs(w), 1));
-                halls.push_back(new Rect(point2.x, point2.y, 1, abs(h)));
+                halls->push_back(new Rect(point2.x, point1.y, abs(w), 1));
+                halls->push_back(new Rect(point2.x, point2.y, 1, abs(h)));
             } else {
-                halls.push_back(new Rect(point2.x, point2.y, abs(w), 1));
-                halls.push_back(new Rect(point1.x, point2.y, 1, abs(h)));
+                halls->push_back(new Rect(point2.x, point2.y, abs(w), 1));
+                halls->push_back(new Rect(point1.x, point2.y, 1, abs(h)));
             }
         } else if (h > 0) {
             if (arc4random_uniform(2)) {
-                halls.push_back(new Rect(point2.x, point1.y, abs(w), 1));
-                halls.push_back(new Rect(point2.x, point1.y, 1, abs(h)));
+                halls->push_back(new Rect(point2.x, point1.y, abs(w), 1));
+                halls->push_back(new Rect(point2.x, point1.y, 1, abs(h)));
             } else {
-                halls.push_back(new Rect(point2.x, point2.y, abs(w), 1));
-                halls.push_back(new Rect(point1.x, point1.y, 1, abs(h)));
+                halls->push_back(new Rect(point2.x, point2.y, abs(w), 1));
+                halls->push_back(new Rect(point1.x, point1.y, 1, abs(h)));
             }
         } else { //if (h == 0)
-            halls.push_back(new Rect(point2.x, point2.y, abs(w), 1));
+            halls->push_back(new Rect(point2.x, point2.y, abs(w), 1));
         }
     } else if (w > 0) {
         if (h < 0) {
             if (arc4random_uniform(2)) {
-                halls.push_back(new Rect(point1.x, point2.y, abs(w), 1));
-                halls.push_back(new Rect(point1.x, point2.y, 1, abs(h)));
+                halls->push_back(new Rect(point1.x, point2.y, abs(w), 1));
+                halls->push_back(new Rect(point1.x, point2.y, 1, abs(h)));
             } else {
-                halls.push_back(new Rect(point1.x, point1.y, abs(w), 1));
-                halls.push_back(new Rect(point2.x, point2.y, 1, abs(h)));
+                halls->push_back(new Rect(point1.x, point1.y, abs(w), 1));
+                halls->push_back(new Rect(point2.x, point2.y, 1, abs(h)));
             }
         } else if (h > 0) {
             if (arc4random_uniform(2)) {
-                halls.push_back(new Rect(point1.x, point1.y, abs(w), 1));
-                halls.push_back(new Rect(point2.x, point1.y, 1, abs(h)));
+                halls->push_back(new Rect(point1.x, point1.y, abs(w), 1));
+                halls->push_back(new Rect(point2.x, point1.y, 1, abs(h)));
             } else {
-                halls.push_back(new Rect(point1.x, point2.y, abs(w), 1));
-                halls.push_back(new Rect(point1.x, point1.y, 1, abs(h)));
+                halls->push_back(new Rect(point1.x, point2.y, abs(w), 1));
+                halls->push_back(new Rect(point1.x, point1.y, 1, abs(h)));
             }
         } else { //if (h == 0)
-            halls.push_back(new Rect(point1.x, point1.y, abs(w), 1));
+            halls->push_back(new Rect(point1.x, point1.y, abs(w), 1));
         }
     } else { //if (w == 0)
         if (h < 0) {
-            halls.push_back(new Rect(point2.x, point2.y, 1, abs(h)));
+            halls->push_back(new Rect(point2.x, point2.y, 1, abs(h)));
         } else if (h > 0) {
-            halls.push_back(new Rect(point1.x, point1.y, 1, abs(h)));
+            halls->push_back(new Rect(point1.x, point1.y, 1, abs(h)));
         }
     }
 }

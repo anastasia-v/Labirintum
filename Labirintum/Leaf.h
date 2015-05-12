@@ -13,7 +13,7 @@ class Leaf {
     Leaf *leftChild;
     Leaf *rightChild;
     Rect *room;
-    Point hall[];
+    std::vector<Rect*> *halls;
     
     ///описание экземпляра класса
     void description();

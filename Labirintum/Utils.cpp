@@ -85,3 +85,11 @@ void printRooms(vector<Leaf*> leafs) {
         }
     }
 }
+
+void printHalls(std::vector<Rect*> halls) {
+    for (int i = 0; i < halls.size(); i++) {
+        Rect *rect = halls[i];
+        rect->description();
+        printf("\n");
+    }
+}

@@ -43,5 +43,14 @@ int main() {
     printLeafs(leafs);
     printRooms(leafs);
     
+    for (int i = 0; i < leafs.size(); i ++) {
+        Leaf *l = leafs[i];
+        if (l->halls != nullptr) {
+        printHalls(*l->halls);
+        printf("\n");
+        }
+    }
+ 
+    
     return 0;
 }
